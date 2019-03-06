@@ -1,0 +1,37 @@
+{% load qr_code %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple QR Generator</title>
+    <style>
+        .form-control {
+            width: 500px;
+            height: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<center>
+    {% if request.GET.user_input %}
+        <h1>'{{ request.GET.user_input }}'의 QR 코드</h1>
+    {% else %}
+        <h1>QR 코드를 생성할 URL을 입력하세요</h1>
+    {% endif %}
+
+
+    <form action="" method="GET">
+        <input type="text" name="user_input" class="form-control"><br>
+        <button type="submit">제출하기</button>
+    </form>
+
+    <br>
+
+    {% if request.GET.user_input %}
+        <img src="{% qr_url_from_text request.GET.user_input size='m' version=2 image_format='png' error_correction='L' %}">
+    {% endif %}
+</center>
+</body>
+</html>
